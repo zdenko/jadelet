@@ -68,6 +68,7 @@ grammar =
 
   attributes: [
     o "LEFT_PARENTHESIS attributePairs RIGHT_PARENTHESIS", -> $2
+    o "attributePairs", -> $1
   ]
 
   attributePairs: [

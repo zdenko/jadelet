@@ -5,3 +5,4 @@ gh-pages/
 node_modules/
 test/samples/*.js
 .idea/
+yarn.lock
