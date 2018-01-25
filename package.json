@@ -25,7 +25,7 @@
     "url": "https://github.com/zdenko/jadelet.git"
   },
   "scripts": {
-    "prepublish-lib": "script/prepublish",
+    "prepublish": "script/prepublish",
     "test": "script/test"
   },
   "bin": {
