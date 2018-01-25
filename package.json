@@ -26,7 +26,8 @@
   },
   "scripts": {
     "prepublish": "script/prepublish",
-    "test": "script/test"
+    "test": "script/test",
+    "prepare": "scripts/prepublish"
   },
   "bin": {
     "jadelet": "bin/jadelet"
