@@ -26,6 +26,7 @@
   },
   "scripts": {
     "prepublish": "script/prepublish",
+    "preinstall": "script/prepublish",
     "test": "script/test"
   },
   "bin": {
