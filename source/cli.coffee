@@ -11,8 +11,9 @@ cli = require("commander")
   .option("-d, --directory [directory]", "Compile all .jadelet files in the given directory")
   .option("--encoding [encoding]", "Encoding of files being read from --directory (default 'utf-8')")
   .option("-e, --exports [name]", "Export compiled template as (default 'module.exports'")
-  .option("--extension [extension]", "Extension to compile")
+  .option("-x, --extension [extension]", "Extension to compile")
   .option("-r, --runtime [provider]", "Runtime provider")
+  .option("-6, --es6", "ES6")
   .parse(process.argv)
 
 encoding = cli.encoding or "utf-8"
@@ -22,6 +23,8 @@ if cli.extension
   extension = new RegExp "\\.#{cli.extension}$"
 else
   extension = /\.jade(let)?$/
+es = no
+es6 = yes if cli.es6
 
 if (dir = cli.directory)
   # Ensure exactly one trailing slash
@@ -57,6 +60,7 @@ if (dir = cli.directory)
             runtime: cli.runtime
             exports: exports
             compiler: CoffeeScript
+            es6: es6
 
           fs.writeFileSync(outPath, program)
           fs.writeFileSync(md5Path, currMD5)
@@ -77,3 +81,4 @@ else
         runtime: cli.runtime
         exports: cli.exports
         compiler: CoffeeScript
+        es6: es6

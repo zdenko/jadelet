@@ -118,9 +118,11 @@ util =
 
     @element tag, @attributes(node), @contents(node)
 
-compile = (parseTree, {compiler, runtime, exports}={}) ->
+compile = (parseTree, {compiler, runtime, exports, es6}={}) ->
   runtime ?=  "require" + "(\"jadelet\")"
   exports ?= "module.exports"
+
+  runtime = "jadelet" if es6
 
   items = util.renderNodes(parseTree)
 
@@ -129,15 +131,26 @@ compile = (parseTree, {compiler, runtime, exports}={}) ->
   else
     exports = ""
 
-  source = """
-    #{exports}(data) ->
-      "use strict"
-      (->
-        #{ROOT_NAME} = #{runtime}(this)
-    #{util.indent(items.join("\n"), "    ")}
-        return #{ROOT_NAME}.root
-      ).call(data)
-  """
+  if es6
+    source = """
+      import #{runtime} from \"#{runtime}\"
+      export default (data) ->
+        (->
+          #{ROOT_NAME} = #{runtime}(this)
+      #{util.indent(items.join("\n"), "    ")}
+          return #{ROOT_NAME}.root
+        ).call(data)
+    """
+  else
+    source = """
+      #{exports}(data) ->
+        "use strict"
+        (->
+          #{ROOT_NAME} = #{runtime}(this)
+      #{util.indent(items.join("\n"), "    ")}
+          return #{ROOT_NAME}.root
+        ).call(data)
+    """
 
   options = bare: true
   programSource = source
