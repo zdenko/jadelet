@@ -27,7 +27,7 @@
   "scripts": {
     "prepublish": "script/prepublish",
     "test": "script/test",
-    "preinstall": "script/prepublish",
+    "preinstall": "script/prepublish"
   },
   "bin": {
     "jadelet": "bin/jadelet"
