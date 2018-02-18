@@ -25,17 +25,17 @@
     "url": "https://github.com/zdenko/jadelet.git"
   },
   "scripts": {
-    "prepublish": "echo 'prep'; ./script/prepublish",
-    "preinstall": "echo 'prepinst'; ./script/prepublish",
-    "prepare": "echo 'prepare'; ./script/prepublish",
-    "test": "./script/test"
+    "prepublish": "echo 'prep'; script/prepublish",
+    "preinstall": "echo 'prepinst'; script/prepublish",
+    "prepare": "echo 'prepare'; script/prepublish",
+    "test": "script/test"
   },
   "bin": {
-    "jadelet": "./bin/jadelet"
+    "jadelet": "bin/jadelet"
   },
   "files": [
-    "bin",
-    "dist"
+    "bin/",
+    "dist/"
   ],
   "main": "dist/runtime.js"
 }
