@@ -2,7 +2,7 @@
 set -e
 
 # normal files
-node_modules/.bin/coffee -co dist/ source/
+./node_modules/.bin/coffee -co dist/ source/
 
 # build lexer
 node_modules/.bin/jison-lex -o dist/parser/lexer.js source/parser/jadelet.jisonlex
