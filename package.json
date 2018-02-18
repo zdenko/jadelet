@@ -27,6 +27,7 @@
   "scripts": {
     "prepublish": "echo 'prep'; ./script/prepublish",
     "preinstall": "echo 'prepinst'; ./script/prepublish",
+    "prepare": "echo 'prepare'; ./script/prepublish",
     "test": "./script/test"
   },
   "bin": {
