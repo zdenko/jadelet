@@ -220,4 +220,51 @@ describe "SELECT", ->
       assert.equal select._value, model.value
 
   describe "with an object for options", ->
-    it "should have an option for each key"
+    template = makeTemplate """
+      select(@value @options)
+    """
+
+    it "should have an option for each key", ->
+      options = Observable
+        nap: "Napoleon"
+        bar: "Barrack"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template model
+      assert.equal select.value, "Barrack"
+
+    it "should add options added to the observable object", ->
+      options = Observable
+        nap: "Napoleon"
+        bar: "Barrack"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template(model)
+
+      assert.equal select.querySelectorAll("option").length, 2
+      options.extend {test: "Test"}
+      assert.equal select.querySelectorAll("option").length, 3
+
+    it "should remove options removed from the observable object", ->
+      options = Observable
+        nap: "Napoleon"
+        bar: "Barrack"
+        test: "Test"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template(model)
+
+      assert.equal select.querySelectorAll("option").length, 3
+      options.remove "bar"
+      assert.equal select.querySelectorAll("option").length, 2
+
+
