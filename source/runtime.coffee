@@ -127,14 +127,16 @@ specialBindings =
 
           element.appendChild option
           index = value?.index or key
-          element.selectedIndex = index if optionName is element._value
-
+          element.selectedIndex = index if value is element._value
+          # console.log optionName
           return option
 
         # TODO: Handle key: value... style options
         if Object::toString.call(values) is '[object Object]'
           values = Object.keys(values).map (key, index) ->
-            makeOption {name: key, value: values[key], index}, key
+            makeOption {name: values[key], value: key, index}, key
+          return values
+
         else
           values.map (value, index) -> makeOption value, index
         return

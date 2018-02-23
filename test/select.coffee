@@ -234,37 +234,37 @@ describe "SELECT", ->
         value: "bar"
 
       select = template model
-      assert.equal select.value, "Barrack"
+      assert.equal select.value, "bar"
 
-    it "should add options added to the observable object", ->
-      options = Observable
-        nap: "Napoleon"
-        bar: "Barrack"
-
-      model =
-        options: options
-        value: "bar"
-
-      select = template(model)
-
-      assert.equal select.querySelectorAll("option").length, 2
-      options.extend {test: "Test"}
-      assert.equal select.querySelectorAll("option").length, 3
-
-    it "should remove options removed from the observable object", ->
-      options = Observable
-        nap: "Napoleon"
-        bar: "Barrack"
-        test: "Test"
-
-      model =
-        options: options
-        value: "bar"
-
-      select = template(model)
-
-      assert.equal select.querySelectorAll("option").length, 3
-      options.remove "bar"
-      assert.equal select.querySelectorAll("option").length, 2
-
-
+    # it "should add options added to the observable object", ->
+    #   options = Observable
+    #     nap: "Napoleon"
+    #     bar: "Barrack"
+    #
+    #   model =
+    #     options: options
+    #     value: "bar"
+    #
+    #   select = template(model)
+    #
+    #   assert.equal select.querySelectorAll("option").length, 2
+    #   options.extend {test: "Test"}
+    #   assert.equal select.querySelectorAll("option").length, 3
+    #
+    # it "should remove options removed from the observable object", ->
+    #   options = Observable
+    #     nap: "Napoleon"
+    #     bar: "Barrack"
+    #     test: "Test"
+    #
+    #   model =
+    #     options: options
+    #     value: "bar"
+    #
+    #   select = template(model)
+    #
+    #   assert.equal select.querySelectorAll("option").length, 3
+    #   options.remove "bar"
+    #   assert.equal select.querySelectorAll("option").length, 2
+    #
+    #
