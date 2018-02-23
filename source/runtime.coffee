@@ -127,7 +127,7 @@ specialBindings =
 
           element.appendChild option
           index = value?.index or key
-          element.selectedIndex = index if value is element._value
+          element.selectedIndex = index if optionValue or value is element._value or value is element._value
           # console.log optionName
           return option
 
