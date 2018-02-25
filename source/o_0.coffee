@@ -113,6 +113,7 @@ module.exports = Observable = (value, context) ->
     if PROXY_LENGTH
       Object.defineProperty self, 'length',
         get: ->
+          console.log "arr lng"
           magicDependency(self)
           value.length
         set: (length) ->
@@ -148,24 +149,52 @@ module.exports = Observable = (value, context) ->
         value.length
 
   if Object::toString.call(value) is '[object Object]'
+    defProp = (property) ->
+      Object.defineProperty self, property,
+        get: ->
+          magicDependency(self)
+          if typeof value[property].observe is "function"
+            value[property]()
+          else
+            value[property]
+        set: (val) ->
+          if typeof value[property].observe is "function"
+            value[property] val
+            notify value[property]
+          else
+            value[property] = val
+          notify value
+
+    defProp prop for own prop of value
+
+    [
+      "keys"
+      "values"
+      "entries"
+    ].forEach (method) ->
+      Object.defineProperty self, method,
+        get: ->
+          magicDependency(self)
+          Object[method] value
+
     # Extra methods for object observables
     extend self,
       # Remove an element from the object and notify observers of changes.
       remove: (object) ->
         if obj = value[object]
+          returnValue = obj
           delete value[object]
           notify(value)
           return obj
-
-      get: (index) ->
-        magicDependency(self)
-        value[index]
 
       extend: (obj) ->
         magicDependency(self)
         value = Object.assign {}, value, obj
         notify value
         value
+
+    # alias
+    self.assign = self.extend
 
   extend self,
     listeners: listeners

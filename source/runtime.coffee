@@ -1,6 +1,6 @@
 "use strict"
 
-Observable = require "./o_0"
+Observable = require "o_0"
 
 # To clean up listeners we keep a map of DOM elements and what listeners are bound to them
 # when we dispose an element we must traverse its children and clean them up too
@@ -128,15 +128,12 @@ specialBindings =
           element.appendChild option
           index = value?.index or key
           element.selectedIndex = index if (value?.value or value) is element._value
-          # console.log optionName
           return option
 
-        # TODO: Handle key: value... style options
         if Object::toString.call(values) is '[object Object]'
           values = Object.keys(values).map (key, index) ->
             makeOption {name: values[key], value: key, index}, key
           return values
-
         else
           values.map (value, index) -> makeOption value, index
         return

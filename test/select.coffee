@@ -236,35 +236,49 @@ describe "SELECT", ->
       select = template model
       assert.equal select.value, "bar"
 
-    # it "should add options added to the observable object", ->
-    #   options = Observable
-    #     nap: "Napoleon"
-    #     bar: "Barrack"
-    #
-    #   model =
-    #     options: options
-    #     value: "bar"
-    #
-    #   select = template(model)
-    #
-    #   assert.equal select.querySelectorAll("option").length, 2
-    #   options.extend {test: "Test"}
-    #   assert.equal select.querySelectorAll("option").length, 3
-    #
-    # it "should remove options removed from the observable object", ->
-    #   options = Observable
-    #     nap: "Napoleon"
-    #     bar: "Barrack"
-    #     test: "Test"
-    #
-    #   model =
-    #     options: options
-    #     value: "bar"
-    #
-    #   select = template(model)
-    #
-    #   assert.equal select.querySelectorAll("option").length, 3
-    #   options.remove "bar"
-    #   assert.equal select.querySelectorAll("option").length, 2
-    #
-    #
+    it "should add options added to the observable object", ->
+      options = Observable
+        nap: "Napoleon"
+        bar: "Barrack"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template(model)
+
+      assert.equal select.querySelectorAll("option").length, 2
+      options Object.assign {}, options(), {test: "Test"}
+      assert.equal select.querySelectorAll("option").length, 3
+
+    it "should remove options removed from the observable object", ->
+      options = Observable
+        nap: "Napoleon"
+        bar: "Barrack"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template(model)
+
+      assert.equal select.querySelectorAll("option").length, 2
+      delete options().bar
+      options Object.assign {}, options()
+      assert.equal select.querySelectorAll("option").length, 1
+
+    it "should observe the value as the value of the value options", ->
+      options = Observable
+        nap: Observable "Napoleon"
+        bar: Observable "Barrack"
+
+      model =
+        options: options
+        value: "bar"
+
+      select = template model
+      optionElements = select.querySelectorAll("option")
+
+      assert.equal optionElements[1].textContent, "Barrack"
+      options().bar "YOLO"
+      assert.equal optionElements[1].textContent, "YOLO"
