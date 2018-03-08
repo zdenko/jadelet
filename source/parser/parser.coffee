@@ -67,8 +67,12 @@ grammar =
   ]
 
   attributes: [
-    o "LEFT_PARENTHESIS attributePairs RIGHT_PARENTHESIS", -> $2
-    o "attributePairs", -> $1
+    o "LEFT_PARENTHESIS attributePairs RIGHT_PARENTHESIS", ->
+        console.log "par", $2
+        $2
+    o "attributePairs", ->
+        console.log "no par", $1
+        $1
   ]
 
   attributePairs: [

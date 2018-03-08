@@ -71,7 +71,7 @@ else
   stdin (input) ->
 
     if cli.ast
-      process.stdout.write JSON.stringify(ast)
+      process.stdout.write JSON.stringify(input)
 
       return
 

@@ -19,7 +19,8 @@ extend parser,
 
 extend parser.yy,
   extend: extend
-
+  test1: (lex) ->
+    console.log("stack",lex.conditionStack)
   newline: ->
     lastNode = @nodePath[@nodePath.length - 1]
 
