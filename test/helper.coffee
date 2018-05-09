@@ -6,7 +6,7 @@ compile = require "../dist/compiler"
 Runtime = require "../dist/runtime"
 Observable = Runtime.Observable
 
-{jsdom} = require("jsdom")
+{jsdom} = require("jsdom/lib/old-api.js")
 
 document = jsdom()
 

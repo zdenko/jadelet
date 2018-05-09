@@ -1,7 +1,8 @@
 fs = require "fs"
 stdin = require "stdin"
 compile = require '../dist/compiler'
-wrench = require "wrench"
+# wrench = require "wrench"
+klawSync = require('klaw-sync')
 CoffeeScript = require "coffeescript"
 md5 = require 'md5'
 
@@ -30,9 +31,10 @@ if (dir = cli.directory)
   # Ensure exactly one trailing slash
   dir = dir.replace /\/*$/, "/"
 
-  files = wrench.readdirSyncRecursive(dir)
+  files = klawSync(dir)
 
-  files.forEach (path) ->
+  files.forEach (ff) ->
+    {path} = ff
     inPath = "#{dir}#{path}"
 
     if fs.lstatSync(inPath).isFile()
