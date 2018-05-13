@@ -37,5 +37,5 @@
     "bin/",
     "dist/"
   ],
-  "main": "dist/runtime.js"
+  "main": "dist/main.js"
 }

@@ -1,10 +1,12 @@
 fs = require "fs"
+npath = require "path"
 stdin = require "stdin"
 compile = require '../dist/compiler'
 # wrench = require "wrench"
-klawSync = require('klaw-sync')
+klawSync = require "klaw-sync"
 CoffeeScript = require "coffeescript"
 md5 = require 'md5'
+
 
 cli = require("commander")
   .version(require('../package.json').version)
@@ -35,7 +37,9 @@ if (dir = cli.directory)
 
   files.forEach (ff) ->
     {path} = ff
-    inPath = "#{dir}#{path}"
+    bpath = npath.basename path
+    # console.log ff, path, npath.basename path
+    inPath = "#{dir}#{bpath}"
 
     if fs.lstatSync(inPath).isFile()
       if inPath.match(extension)
