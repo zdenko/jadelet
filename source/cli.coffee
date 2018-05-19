@@ -37,9 +37,9 @@ if (dir = cli.directory)
 
   files.forEach (ff) ->
     {path} = ff
-    bpath = npath.basename path
+    # bpath = npath.basename path
     # console.log ff, path, npath.basename path
-    inPath = "#{dir}#{bpath}"
+    inPath = "#{path}" #{}"#{dir}#{bpath}"
 
     if fs.lstatSync(inPath).isFile()
       if inPath.match(extension)
